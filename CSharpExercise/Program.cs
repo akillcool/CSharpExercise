@@ -1,4 +1,4 @@
-﻿//显式类型转换
+﻿//隐式类型转换
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace CSharpExercise
         {
             Stone stone = new Stone();
             stone.Age = 5000;
-            Monkey wukongSun = (Monkey)stone;
+            Monkey wukongSun = stone;
             Console.WriteLine(wukongSun.Age);
         }
     }
@@ -23,7 +23,7 @@ namespace CSharpExercise
     {
         public int Age;
 
-        public static explicit operator Monkey(Stone stone)
+        public static implicit operator Monkey(Stone stone)
         {
             Monkey m = new Monkey();
             m.Age = stone.Age / 500;
