@@ -1,7 +1,7 @@
-﻿using System;
+﻿//显式类型转换
+using System;
 using System.Collections.Generic;
 using System.Linq;
-//初识泛类型
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,22 +13,26 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            Dictionary<string, Student> stuDic = new Dictionary<string, Student>();
-            for (int i = 1; i <= 100; i++)
-            {
-                Student stu = new Student();
-                stu.Name = "s_" + i.ToString();
-                stu.Score = 100 - i;
-                stuDic.Add(stu.Name, stu);
-            }
-            Student number6 = stuDic["s_6"];
-            Console.WriteLine(number6.Score);
+            Stone stone = new Stone();
+            stone.Age = 5000;
+            Monkey wukongSun = (Monkey)stone;
+            Console.WriteLine(wukongSun.Age);
+        }
+    }
+    class Stone
+    {
+        public int Age;
+
+        public static explicit operator Monkey(Stone stone)
+        {
+            Monkey m = new Monkey();
+            m.Age = stone.Age / 500;
+            return m;
         }
     }
 
-    class Student   
+    class Monkey
     {
-        public string Name;
-        public int Score;
+        public int Age;
     }
 }
