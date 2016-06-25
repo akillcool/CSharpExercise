@@ -1,4 +1,4 @@
-﻿//隐式类型转换
+﻿//Statements Example
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,26 +13,23 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            Stone stone = new Stone();
-            stone.Age = 5000;
-            Monkey wukongSun = stone;
-            Console.WriteLine(wukongSun.Age);
+            string input = Console.ReadLine();
+            try
+            {
+                double score = double.Parse(input);
+                if (score >= 60)
+                {
+                    Console.WriteLine("Pass!");
+                }
+                else
+                {
+                    Console.WriteLine("Failed");
+                }
+            }
+            catch 
+            {
+                Console.WriteLine("Not a number!");
+            }
         }
-    }
-    class Stone
-    {
-        public int Age;
-
-        public static implicit operator Monkey(Stone stone)
-        {
-            Monkey m = new Monkey();
-            m.Age = stone.Age / 500;
-            return m;
-        }
-    }
-
-    class Monkey
-    {
-        public int Age;
     }
 }
