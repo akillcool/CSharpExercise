@@ -1,4 +1,4 @@
-﻿//Statements Example
+﻿//switch语句和枚举类型
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +13,27 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            try
+            Level myLevel = Level.High;
+            switch (myLevel)
             {
-                double score = double.Parse(input);
-                if (score >= 60)
-                {
-                    Console.WriteLine("Pass!");
-                }
-                else
-                {
-                    Console.WriteLine("Failed");
-                }
-            }
-            catch 
-            {
-                Console.WriteLine("Not a number!");
+                case Level.High:
+                    Console.WriteLine("High level.");
+                    break;
+                case Level.Mid:
+                    Console.WriteLine("Mid level.");
+                    break;
+                case Level.Low:
+                    Console.WriteLine("Low level.");
+                    break;
+                default:
+                    break;
             }
         }
+    }
+    enum Level
+    {
+        High,
+        Mid,
+        Low
     }
 }
