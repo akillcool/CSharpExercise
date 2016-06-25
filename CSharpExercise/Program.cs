@@ -1,4 +1,4 @@
-﻿//switch语句和枚举类型
+﻿//try catch finally
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +13,56 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            Level myLevel = Level.High;
-            switch (myLevel)
+            Calculator c = new Calculator();
+            int result = 0;
+            try
             {
-                case Level.High:
-                    Console.WriteLine("High level.");
-                    break;
-                case Level.Mid:
-                    Console.WriteLine("Mid level.");
-                    break;
-                case Level.Low:
-                    Console.WriteLine("Low level.");
-                    break;
-                default:
-                    break;
+                result = c.Add(null, "200");
             }
+            catch (ArgumentNullException ane)
+            {
+                Console.WriteLine(ane.Message);
+            }
+            Console.WriteLine(result);
         }
     }
-    enum Level
+    class Calculator
     {
-        High,
-        Mid,
-        Low
+        public int Add(string arg1, string arg2)
+        {
+            int a = 0;
+            int b = 0;
+            //bool hasError = false;
+            try
+            {
+                a = int.Parse(arg1);
+                b = int.Parse(arg2);
+            }
+            catch (ArgumentNullException ane)
+            {
+                //hasError = true;
+                //Console.WriteLine(ane.Message);
+                throw ane;
+            }
+            catch(FormatException fe)
+            {
+                //hasError = true;
+                Console.WriteLine(fe.Message);
+            }
+            catch(OverflowException ofe)
+            {
+                //hasError = true;
+                Console.WriteLine(ofe.Message);
+            }
+            //finally
+            //{
+            //    if (hasError)
+            //    {
+            //        Console.WriteLine("Something happened.");
+            //    }
+            //}
+            int result = checked(a + b);
+            return result;
+        }
     }
 }
