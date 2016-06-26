@@ -1,4 +1,4 @@
-﻿//属性实例 C#
+﻿//静态属性 C#
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +15,8 @@ namespace CSharpExercise
         {
             try
             {
-                Student stu1 = new Student();
-                stu1.Age = 20;
-                Student stu2 = new Student();
-                stu2.Age = 20;
-                Student stu3 = new Student();
-                stu3.Age = 200;
-
-                int averageAge = (stu1.Age + stu2.Age + stu3.Age) / 3;
-                Console.WriteLine(averageAge);
+                Student.Amount = -100;
+                Console.WriteLine(Student.Amount);
             }
             catch (Exception ex)
             {
@@ -56,21 +49,23 @@ namespace CSharpExercise
             }
         }
 
-        //public int GetAge()
-        //{
-        //    return this.age;
-        //}
+        //静态属性
+        private static int amount;
 
-        //public void SetAge(int value)
-        //{
-        //    if (value >= 0 && value <= 120)
-        //    {
-        //        this.age = value;
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("Age value has error!");
-        //    }
-        //}
+        public static int Amount
+        {
+            get { return amount; }
+            set {
+                if (value >= 0)
+                {
+                    Student.amount = value;
+                }
+                else
+                {
+                    throw new Exception("Amount must greater than 0.");
+                }
+            }
+        }
+
     }
 }
