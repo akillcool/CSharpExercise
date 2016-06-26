@@ -1,4 +1,4 @@
-﻿//委托 模板方法
+﻿//委托 回调方法
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +18,29 @@ namespace CSharpExercise
             Func<Product> func1 = new Func<Product>(productFactory.MakePizza);
             Func<Product> func2 = new Func<Product>(productFactory.MakeToyCar);
 
-            Box box1 = wrapFactory.WrapProduct(func1);
-            Box box2 = wrapFactory.WrapProduct(func2);
+            Logger logger = new Logger();
+            Action<Product> log = new Action<Product>(logger.Log);
+
+            Box box1 = wrapFactory.WrapProduct(func1,log);
+            Box box2 = wrapFactory.WrapProduct(func2,log);
 
             Console.WriteLine(box1.Product.Name);
             Console.WriteLine(box2.Product.Name);
         }
     }
 
+    class Logger
+    {
+        public void Log(Product product)
+        {
+            Console.WriteLine("Product '{0}' created at {1}, price is {2}.", product.Name, DateTime.UtcNow, product.Price);
+        }
+    }
+
     class Product
     {
         public string Name { get; set; }
+        public double Price { get; set; }
     }
 
     class Box
@@ -36,12 +48,17 @@ namespace CSharpExercise
         public Product Product { get; set; }
     }
 
-    class WrapFactory   //模板方法
+    class WrapFactory
     {
-        public Box WrapProduct(Func<Product> getProduct)
+        public Box WrapProduct(Func<Product> getProduct, Action<Product> logCallback)
         {
             Box box = new Box();
             Product product = getProduct.Invoke();
+            if (product.Price >= 50)
+            {
+                logCallback(product);
+            }
+
             box.Product = product;
             return box;
         }
@@ -53,6 +70,7 @@ namespace CSharpExercise
         {
             Product product = new Product();
             product.Name = "Pizza";
+            product.Price = 12;
             return product;
         }
 
@@ -60,6 +78,7 @@ namespace CSharpExercise
         {
             Product product = new Product();
             product.Name = "Toy Car";
+            product.Price = 100;
             return product;
         }
     }
