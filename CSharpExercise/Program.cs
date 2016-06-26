@@ -1,4 +1,4 @@
-﻿//超EZ的99乘法表
+﻿//实例字段和静态字段
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +13,59 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            for (int a = 1; a <= 9; a++)
+            List<Student> stuList = new List<Student>();
+            for (int i = 0; i < 100; i++)
             {
-                for (int b = 1; b <= a; b++)
-                {
-                    //if (b > a)
-                    //{
-                    //    break;
-                    //}
-                    Console.Write("{0} X {1} = {2}\t", a, b, a * b);
-                }
-                Console.WriteLine();
+                Student stu = new Student();
+                stu.Age = 24;
+                stu.Score = i;
+                stuList.Add(stu);
             }
+
+            int totalAge = 0;
+            int totalScore = 0;
+            foreach (var stu in stuList)
+            {
+                totalAge += stu.Age;
+                totalScore += stu.Score;
+            }
+
+            Student.AverageAge = totalAge / Student.Amount;
+            Student.AverageScore = totalScore / Student.Amount;
+
+            Student.ReportAmount();
+            Student.ReportAverageAge();
+            Student.ReportAverageScore();
+        }
+    }
+
+    class Student
+    {
+        public int Age;
+        public int Score;
+
+        public static int AverageAge;
+        public static int AverageScore;
+        public static int Amount;
+
+        public Student()
+        {
+            Student.Amount++;
+        }
+
+        public static void ReportAmount()
+        {
+            Console.WriteLine(Student.Amount);
+        }
+
+        public static void ReportAverageAge()
+        {
+            Console.WriteLine(Student.AverageAge);
+        }
+
+        public static void ReportAverageScore()
+        {
+            Console.WriteLine(Student.AverageScore);
         }
     }
 }
