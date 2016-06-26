@@ -1,4 +1,4 @@
-﻿//实例字段和静态字段
+﻿//属性实例 old version
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,59 +13,37 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            List<Student> stuList = new List<Student>();
-            for (int i = 0; i < 100; i++)
-            {
-                Student stu = new Student();
-                stu.Age = 24;
-                stu.Score = i;
-                stuList.Add(stu);
-            }
+            Student stu1 = new Student();
+            stu1.SetAge(20);
+            Student stu2 = new Student();
+            stu2.SetAge(20);
+            Student stu3 = new Student();
+            stu3.SetAge(20);
 
-            int totalAge = 0;
-            int totalScore = 0;
-            foreach (var stu in stuList)
-            {
-                totalAge += stu.Age;
-                totalScore += stu.Score;
-            }
-
-            Student.AverageAge = totalAge / Student.Amount;
-            Student.AverageScore = totalScore / Student.Amount;
-
-            Student.ReportAmount();
-            Student.ReportAverageAge();
-            Student.ReportAverageScore();
+            int averageAge = (stu1.GetAge() + stu2.GetAge() + stu3.GetAge()) / 3;
+            Console.WriteLine(averageAge);
         }
     }
 
     class Student
     {
-        public int Age;
-        public int Score;
+        private int age;
 
-        public static int AverageAge;
-        public static int AverageScore;
-        public static int Amount;
-
-        public Student()
+        public int GetAge()
         {
-            Student.Amount++;
+            return this.age;
         }
 
-        public static void ReportAmount()
+        public void SetAge(int value)
         {
-            Console.WriteLine(Student.Amount);
-        }
-
-        public static void ReportAverageAge()
-        {
-            Console.WriteLine(Student.AverageAge);
-        }
-
-        public static void ReportAverageScore()
-        {
-            Console.WriteLine(Student.AverageScore);
+            if (value >= 0 && value <= 120)
+            {
+                this.age = value;
+            }
+            else
+            {
+                throw new Exception("Age value has error!");
+            }
         }
     }
 }
