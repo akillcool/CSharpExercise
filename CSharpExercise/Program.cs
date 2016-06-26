@@ -1,4 +1,4 @@
-﻿//属性实例 old version + try catch 
+﻿//属性实例 C#
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +16,13 @@ namespace CSharpExercise
             try
             {
                 Student stu1 = new Student();
-                stu1.SetAge(20);
+                stu1.Age = 20;
                 Student stu2 = new Student();
-                stu2.SetAge(20);
+                stu2.Age = 20;
                 Student stu3 = new Student();
-                stu3.SetAge(200);
+                stu3.Age = 200;
 
-                int averageAge = (stu1.GetAge() + stu2.GetAge() + stu3.GetAge()) / 3;
+                int averageAge = (stu1.Age + stu2.Age + stu3.Age) / 3;
                 Console.WriteLine(averageAge);
             }
             catch (Exception ex)
@@ -36,21 +36,41 @@ namespace CSharpExercise
     {
         private int age;
 
-        public int GetAge()
+        public int Age
         {
-            return this.age;
+            get
+            {
+                return this.age;
+            }
+
+            set
+            {
+                if (value >= 0 && value <= 120)
+                {
+                    this.age = value;
+                }
+                else
+                {
+                    throw new Exception("Age value has error!");
+                }
+            }
         }
 
-        public void SetAge(int value)
-        {
-            if (value >= 0 && value <= 120)
-            {
-                this.age = value;
-            }
-            else
-            {
-                throw new Exception("Age value has error!");
-            }
-        }
+        //public int GetAge()
+        //{
+        //    return this.age;
+        //}
+
+        //public void SetAge(int value)
+        //{
+        //    if (value >= 0 && value <= 120)
+        //    {
+        //        this.age = value;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Age value has error!");
+        //    }
+        //}
     }
 }
