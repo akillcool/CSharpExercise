@@ -1,4 +1,4 @@
-﻿//委托的间接调用 action和function
+﻿//自定义委托
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpExercise
 {
+    public delegate double Calc(double a, double b);
 
     class Program
     {
@@ -14,44 +15,46 @@ namespace CSharpExercise
         static void Main(string[] args)
         {
             Calculator calculator = new Calculator();
-            Action action = new Action(calculator.Report);
-            calculator.Report();
-            action.Invoke();
-            action();
+            Calc calc1 = new Calc(calculator.Add);
+            Calc calc2 = new Calc(calculator.Sub);
+            Calc calc3 = new Calc(calculator.Mul);
+            Calc calc4 = new Calc(calculator.Div);
 
-            Func<int, int, int> func1 = new Func<int, int, int>(calculator.Add);
-            Func<int, int, int> func2 = new Func<int, int, int>(calculator.Sub);
+            double a = 100;
+            double b = 200;
+            double c = 0;
 
-            int x = 100;
-            int y = 200;
-            int z = 0;
-
-            //z = func1.Invoke(x, y);
-            z = func1(x, y);    //函数指针式写法
-            Console.WriteLine(z);
-            //z = func2.Invoke(x, y);
-            z = func2(x, y);    //函数指针式写法
-            Console.WriteLine(z);
+            c = calc1(a, b);
+            Console.WriteLine(c);
+            c = calc2(a, b);
+            Console.WriteLine(c);
+            c = calc3(a, b);
+            Console.WriteLine(c);
+            c = calc4(a, b);
+            Console.WriteLine(c);
         }
     }
 
     class Calculator
     {
-        public void Report()
+        public double Add(double a, double b)
         {
-            Console.WriteLine("I have 3 methods.");
+            return a + b;
         }
 
-        public int Add(int a, int b)
+        public double Sub(double a, double b)
         {
-            int result = a + b;
-            return result;
+            return a - b;
         }
 
-        public int Sub(int a, int b)
+        public double Mul(double a, double b)
         {
-            int result = a - b;
-            return result;
+            return a * b;
+        }
+
+        public double Div(double a, double b)
+        {
+            return a / b;
         }
     }
 
