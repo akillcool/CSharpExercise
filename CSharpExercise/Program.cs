@@ -1,4 +1,4 @@
-﻿//静态属性 C#
+﻿//委托的间接调用 action和function
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,59 +13,46 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            try
-            {
-                Student.Amount = -100;
-                Console.WriteLine(Student.Amount);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            Calculator calculator = new Calculator();
+            Action action = new Action(calculator.Report);
+            calculator.Report();
+            action.Invoke();
+            action();
+
+            Func<int, int, int> func1 = new Func<int, int, int>(calculator.Add);
+            Func<int, int, int> func2 = new Func<int, int, int>(calculator.Sub);
+
+            int x = 100;
+            int y = 200;
+            int z = 0;
+
+            //z = func1.Invoke(x, y);
+            z = func1(x, y);    //函数指针式写法
+            Console.WriteLine(z);
+            //z = func2.Invoke(x, y);
+            z = func2(x, y);    //函数指针式写法
+            Console.WriteLine(z);
         }
     }
 
-    class Student
+    class Calculator
     {
-        private int age;
-
-        public int Age
+        public void Report()
         {
-            get
-            {
-                return this.age;
-            }
-
-            set
-            {
-                if (value >= 0 && value <= 120)
-                {
-                    this.age = value;
-                }
-                else
-                {
-                    throw new Exception("Age value has error!");
-                }
-            }
+            Console.WriteLine("I have 3 methods.");
         }
 
-        //静态属性
-        private static int amount;
-
-        public static int Amount
+        public int Add(int a, int b)
         {
-            get { return amount; }
-            set {
-                if (value >= 0)
-                {
-                    Student.amount = value;
-                }
-                else
-                {
-                    throw new Exception("Amount must greater than 0.");
-                }
-            }
+            int result = a + b;
+            return result;
         }
 
+        public int Sub(int a, int b)
+        {
+            int result = a - b;
+            return result;
+        }
     }
+
 }
