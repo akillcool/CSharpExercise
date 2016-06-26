@@ -1,4 +1,4 @@
-﻿//属性实例 old version
+﻿//属性实例 old version + try catch 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +13,22 @@ namespace CSharpExercise
 
         static void Main(string[] args)
         {
-            Student stu1 = new Student();
-            stu1.SetAge(20);
-            Student stu2 = new Student();
-            stu2.SetAge(20);
-            Student stu3 = new Student();
-            stu3.SetAge(20);
+            try
+            {
+                Student stu1 = new Student();
+                stu1.SetAge(20);
+                Student stu2 = new Student();
+                stu2.SetAge(20);
+                Student stu3 = new Student();
+                stu3.SetAge(200);
 
-            int averageAge = (stu1.GetAge() + stu2.GetAge() + stu3.GetAge()) / 3;
-            Console.WriteLine(averageAge);
+                int averageAge = (stu1.GetAge() + stu2.GetAge() + stu3.GetAge()) / 3;
+                Console.WriteLine(averageAge);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 
