@@ -1,4 +1,4 @@
-﻿//使用委托进行隐式异步调用 BeginInvoke
+﻿//显式异步调用 Thread
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +17,13 @@ namespace CSharpExercise
             Student stu2 = new Student() { ID = 2, PenColor = ConsoleColor.Green };
             Student stu3 = new Student() { ID = 3, PenColor = ConsoleColor.Red };
 
-            Action action1 = new Action(stu1.DoHomework);
-            Action action2 = new Action(stu2.DoHomework);
-            Action action3 = new Action(stu3.DoHomework);
+            Thread thread1 = new Thread(stu1.DoHomework);
+            Thread thread2 = new Thread(stu2.DoHomework);
+            Thread thread3 = new Thread(stu3.DoHomework);
 
-            action1.BeginInvoke(null, null);
-            action2.BeginInvoke(null, null);
-            action3.BeginInvoke(null, null);
-
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
 
             for (int i = 0; i < 10; i++)
             {
