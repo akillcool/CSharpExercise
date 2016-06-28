@@ -1,4 +1,4 @@
-﻿//显式异步调用 Thread
+﻿//显式异步调用 Task
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +17,14 @@ namespace CSharpExercise
             Student stu2 = new Student() { ID = 2, PenColor = ConsoleColor.Green };
             Student stu3 = new Student() { ID = 3, PenColor = ConsoleColor.Red };
 
-            Thread thread1 = new Thread(stu1.DoHomework);
-            Thread thread2 = new Thread(stu2.DoHomework);
-            Thread thread3 = new Thread(stu3.DoHomework);
+            Task task1 = new Task(new Action(stu1.DoHomework));
+            Task task2 = new Task(new Action(stu2.DoHomework));
+            Task task3 = new Task(new Action(stu3.DoHomework));
 
-            thread1.Start();
-            thread2.Start();
-            thread3.Start();
+            task1.Start();
+            task2.Start();
+            task3.Start();
+
 
             for (int i = 0; i < 10; i++)
             {
