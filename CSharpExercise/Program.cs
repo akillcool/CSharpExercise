@@ -1,9 +1,9 @@
-﻿//Event Sample 1
+﻿//Event Sample 2
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Timers;
+using System.Windows.Forms;
 
 namespace CSharpExercise
 {
@@ -11,30 +11,28 @@ namespace CSharpExercise
     {
         static void Main(string[] args)
         {
-            Timer timer = new Timer();
-            Boy boy = new Boy();
-            Girl girl = new Girl();
+            Form form = new Form();
+            Controller controller = new Controller(form);
 
-            timer.Interval = 1000;
-            timer.Elapsed += boy.Action;
-            timer.Elapsed += girl.Action;
-            timer.Start();
-            Console.ReadLine();     //等待读取，让事件响应
+            form.ShowDialog();      //防止程序跳出
         }
 
-        class Boy
+        class Controller
         {
-            internal void Action(object sender, ElapsedEventArgs e)
+            private Form form;
+
+            public Controller(Form form)    //构造器
             {
-                Console.WriteLine("Jump!");
+                if (form != null)
+                {
+                    this.form = form;
+                    this.form.Click += FormClicked;
+                }
             }
-        }
 
-        class Girl
-        {
-            internal void Action(object sender, ElapsedEventArgs e)
+            private void FormClicked(object sender, EventArgs e)
             {
-                Console.WriteLine("Sing!");
+                this.form.Text = DateTime.Now.ToString();
             }
         }
     }
