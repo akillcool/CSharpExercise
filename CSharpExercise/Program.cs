@@ -1,4 +1,4 @@
-﻿//Event Sample 3
+﻿//Event Sample 4
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +13,31 @@ namespace CSharpExercise
         {
             MyForm form = new MyForm();
 
-            form.Click += form.Action;
             form.ShowDialog();
         }
     }
 
     class MyForm : Form
     {
-        internal void Action(object sender, EventArgs e)
+        private TextBox textBox;
+        private Button button;
+
+        public MyForm()
         {
-            this.Text = DateTime.Now.ToString();
+            this.textBox = new TextBox();
+            this.button = new Button();
+
+            this.Controls.Add(this.textBox);
+            this.Controls.Add(this.button);
+
+            this.button.Top = 20;
+            this.button.Text = "Say Hello";
+            this.button.Click += ButtonClicked;
+        }
+
+        private void ButtonClicked(object sender, EventArgs e)
+        {
+            this.textBox.Text = "Hello World!";   
         }
     }
 }
